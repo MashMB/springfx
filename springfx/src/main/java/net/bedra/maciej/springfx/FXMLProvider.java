@@ -1,8 +1,12 @@
 package net.bedra.maciej.springfx;
 
+import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.util.StringUtils;
 
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +24,7 @@ public class FXMLProvider {
 
     private ResourceBundle languagePack;
     private Stage primaryStage;
+    private Map<String, URL> views = new TreeMap<>();
 
     /**
      * FXMLProvider constructor.
@@ -28,6 +33,37 @@ public class FXMLProvider {
      */
     public FXMLProvider(AnnotationConfigApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+    }
+
+    /**
+     * Add FXML view to provider collection with accessible name.
+     * 
+     * @param name accessible name for FXML view
+     * @param path path to FXML view file
+     */
+    public void addView(String name, String path) {
+        log.debug("Adding FXML view to provider collection [name = {}, path = {}]", name, path);
+
+        if (StringUtils.isEmpty(name)) {
+            throw new FXMLException("Accessible FXML view name is null");
+        }
+
+        if (views.containsKey(name)) {
+            throw new FXMLException("FXML view for name already exists in views collection");
+        }
+
+        if (StringUtils.isEmpty(path)) {
+            throw new FXMLException("Path to FXML view is null");
+        }
+
+        URL view = getClass().getResource(path);
+
+        if (view == null) {
+            throw new FXMLException("Invalid path to FXML view");
+        }
+
+        views.put(name, view);
+        log.debug("FXML view added to provider collection [name = {}, path = {}]", name, view.getPath());
     }
 
     /**
