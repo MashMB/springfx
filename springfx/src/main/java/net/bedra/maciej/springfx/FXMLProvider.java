@@ -36,6 +36,29 @@ public class FXMLProvider {
     }
 
     /**
+     * Get FXML view from provider collection for accessible name.
+     * 
+     * @param name accessible FXML view name
+     * @return URL FXML view location
+     */
+    public URL getView(String name) {
+        log.debug("Getting FXML view from provider collection [name = {}]", name);
+
+        if (StringUtils.isEmpty(name)) {
+            throw new FXMLException("Accessible FXML view name is null");
+        }
+
+        if (!views.containsKey(name)) {
+            throw new FXMLException("FXML view not exists");
+        }
+
+        URL view = views.get(name);
+        log.debug("FXML view found in provider collection [path = {}]", view.getPath());
+
+        return view;
+    }
+
+    /**
      * Add FXML view to provider collection with accessible name.
      * 
      * @param name accessible name for FXML view
