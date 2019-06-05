@@ -1,5 +1,7 @@
 package net.bedra.maciej.springfx;
 
+import java.util.ResourceBundle;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javafx.stage.Stage;
@@ -16,6 +18,7 @@ public class FXMLProvider {
 
     private final AnnotationConfigApplicationContext applicationContext;
 
+    private ResourceBundle languagePack;
     private Stage primaryStage;
 
     /**
@@ -25,6 +28,27 @@ public class FXMLProvider {
      */
     public FXMLProvider(AnnotationConfigApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+    }
+
+    /**
+     * Set language pack for FXML provider to transfer it later to other components.
+     * 
+     * @param bundle language pack bundle
+     */
+    public void setLanguagePack(ResourceBundle bundle) {
+        log.debug("Setting language pack for FXML provider [baseBundleName = {}]",
+                bundle != null ? bundle.getBaseBundleName() : null);
+
+        if (bundle == null) {
+            throw new FXMLException("Language pack is null");
+        }
+
+        if (languagePack != null) {
+            throw new FXMLException("Language pack is already assigned");
+        }
+
+        languagePack = bundle;
+        log.debug("Language pack for FXML provider set [baseBundleName = {}]", languagePack.getBaseBundleName());
     }
 
     /**
