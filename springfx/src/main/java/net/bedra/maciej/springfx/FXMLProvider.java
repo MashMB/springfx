@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
-import net.bedra.maciej.springfx.exceptions.FXMLException;
+import net.bedra.maciej.springfx.exception.FXMLException;
 
 /**
  * Set of tools for FXML views handling.

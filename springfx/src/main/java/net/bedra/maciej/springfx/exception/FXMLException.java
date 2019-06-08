@@ -1,4 +1,4 @@
-package net.bedra.maciej.springfx.exceptions;
+package net.bedra.maciej.springfx.exception;
 
 /**
  * Exception to handle errors connected with FXML.
