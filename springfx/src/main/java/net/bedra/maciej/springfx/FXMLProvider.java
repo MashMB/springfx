@@ -1,5 +1,6 @@
 package net.bedra.maciej.springfx;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -8,9 +9,11 @@ import java.util.TreeMap;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.util.StringUtils;
 
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import net.bedra.maciej.springfx.exception.FXMLException;
+import net.bedra.maciej.springfx.model.FXMLView;
 
 /**
  * Set of tools for FXML views handling.
@@ -56,6 +59,38 @@ public class FXMLProvider {
         log.debug("FXML view found in provider collection [path = {}]", view.getPath());
 
         return view;
+    }
+
+    /**
+     * Load FXML view to an object that wraps any JavaFX component that can be used
+     * as placeholder and it's controller.
+     * 
+     * @param name accessible name of the FXML view to load
+     * @return FXMLView FXML view wrapper that contains component with loaded view
+     *         and it's controller
+     */
+    public FXMLView loadView(String name) {
+        log.debug("Loading FXML view for name [name = {}]", name);
+        FXMLView fxmlView = null;
+        URL view = getView(name);
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setControllerFactory(applicationContext::getBean);
+        fxmlLoader.setResources(languagePack);
+        fxmlLoader.setLocation(view);
+
+        try {
+            Object component = fxmlLoader.load();
+            Object controller = fxmlLoader.getController();
+            fxmlView = new FXMLView(component, controller);
+        } catch (IOException ex) {
+            log.error("Error occurred while loading FXML view", ex);
+            throw new FXMLException("FXML view loading failed");
+        }
+
+        log.debug("FXML view loaded for name [name = {}, view = {}]", name, fxmlView.toString());
+
+        return fxmlView;
     }
 
     /**
