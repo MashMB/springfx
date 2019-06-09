@@ -3,8 +3,10 @@ package net.bedra.maciej.config;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import lombok.extern.slf4j.Slf4j;
+import net.bedra.maciej.springfx.FXMLProvider;
 
 /**
  * Configuration for FXML provider.
@@ -28,6 +30,24 @@ public class ProviderConfig {
         log.debug("Spring Boot context initialized [contextName = {}]", acac.getDisplayName());
 
         return acac;
+    }
+
+    /**
+     * Initialize FXML provider with Spring Boot application context and make bean
+     * from it for easy FXML views handling.
+     * 
+     * @param applicationContext Spring Boot application context
+     * @return FXMLProvider FXML views provider
+     */
+    @Bean
+    @DependsOn("applicationContext")
+    public FXMLProvider fxmlProvider(AnnotationConfigApplicationContext applicationContext) {
+        log.debug("Initializing FXML provider [contextName = {}]", applicationContext.getDisplayName());
+        FXMLProvider fxmlProvider = new FXMLProvider(applicationContext);
+        log.debug("FXML provider initialized [contextName = {}, fxmlProvider = {}]",
+                applicationContext.getDisplayName(), fxmlProvider.toString());
+
+        return fxmlProvider;
     }
 
 }
