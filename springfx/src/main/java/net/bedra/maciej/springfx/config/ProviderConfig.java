@@ -1,4 +1,4 @@
-package net.bedra.maciej.config;
+package net.bedra.maciej.springfx.config;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -44,8 +44,7 @@ public class ProviderConfig {
     public FXMLProvider fxmlProvider(AnnotationConfigApplicationContext applicationContext) {
         log.debug("Initializing FXML provider [contextName = {}]", applicationContext.getDisplayName());
         FXMLProvider fxmlProvider = new FXMLProvider(applicationContext);
-        log.debug("FXML provider initialized [contextName = {}, fxmlProvider = {}]",
-                applicationContext.getDisplayName(), fxmlProvider.toString());
+        log.debug("FXML provider initialized [fxmlProvider = {}]", fxmlProvider.toString());
 
         return fxmlProvider;
     }
