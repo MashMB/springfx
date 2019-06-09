@@ -10,6 +10,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.util.StringUtils;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import net.bedra.maciej.springfx.exception.FXMLException;
@@ -59,6 +61,21 @@ public class FXMLProvider {
         log.debug("FXML view found in provider collection [path = {}]", view.getPath());
 
         return view;
+    }
+
+    /**
+     * Change whole scene by loading FXML view directly in JavaFX primary stage.
+     * 
+     * @param name name of the FXML view to load
+     * @return Object controller for loaded FXML view
+     */
+    public Object loadScene(String name) {
+        log.debug("Loading FXML view to scene [name = {}]", name);
+        FXMLView loadedView = loadView(name);
+        primaryStage.setScene(new Scene((Parent) loadedView.getComponent()));
+        log.debug("FXML view loaded to scene [name = {}, view = {}]", name, loadedView.toString());
+
+        return loadedView.getController();
     }
 
     /**
