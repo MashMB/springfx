@@ -20,6 +20,31 @@ public class ColorsPalette {
     private final Map<String, Paint> colors = new TreeMap<>();
 
     /**
+     * Get color from palette for accessible name.
+     * 
+     * @param name accessible name of the color
+     * @return Paint real color value that can be used in JavaFX application
+     */
+    public Paint getColor(String name) {
+        log.debug("Getting color from palette [name = {}]", name);
+        Paint color = null;
+
+        if (StringUtils.isEmpty(name)) {
+            throw new ColorsPaletteException("Accessible color name is null");
+        }
+
+        if (!colors.containsKey(name)) {
+            throw new ColorsPaletteException("Color not exists");
+        }
+
+        color = colors.get(name);
+
+        log.debug("Color found in palette [color = {}]", color.toString());
+
+        return color;
+    }
+
+    /**
      * Add new color to palette.
      * 
      * @param name accessible name of the color
