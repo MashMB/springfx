@@ -137,6 +137,10 @@ public class FXMLProvider {
             throw new FXMLException("Invalid path to FXML view");
         }
 
+        if (views.containsValue(view)) {
+            throw new FXMLException("FXML view already defined in views collection");
+        }
+
         views.put(name, view);
         log.debug("FXML view added to provider collection [name = {}, path = {}]", name, view.getPath());
     }
