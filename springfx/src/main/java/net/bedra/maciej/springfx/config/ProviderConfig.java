@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 import lombok.extern.slf4j.Slf4j;
+import net.bedra.maciej.springfx.ColorsPalette;
 import net.bedra.maciej.springfx.FXMLProvider;
 
 /**
@@ -30,6 +31,21 @@ public class ProviderConfig {
         log.debug("Spring Boot context initialized [contextName = {}]", acac.getDisplayName());
 
         return acac;
+    }
+
+    /**
+     * Initialize colors palette that will be available for whole application
+     * (Spring Boot bean).
+     * 
+     * @return ColorsPalette colors palette available for whole application
+     */
+    @Bean
+    public ColorsPalette colorsPalette() {
+        log.debug("Initializing colors palette");
+        ColorsPalette colorsPalette = new ColorsPalette();
+        log.debug("Colors palette initialized [colorsPalette = {}]", colorsPalette.toString());
+
+        return colorsPalette;
     }
 
     /**
