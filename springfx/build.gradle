@@ -22,8 +22,20 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 
 group = 'net.bedra.maciej'
-version = '0.0.0'
+version = '1.0.0'
 sourceCompatibility = '1.8'
+
+sourceSets {
+	build {
+		java.srcDir file('src/main/java')
+	}
+}
+
+javadoc {
+	source = sourceSets.main.allJava
+	classpath = configurations.compile
+	options.addStringOption('noqualifier', 'all')
+}
 
 repositories {
 	mavenCentral()
