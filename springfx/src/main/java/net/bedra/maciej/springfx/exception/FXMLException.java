@@ -7,6 +7,8 @@ package net.bedra.maciej.springfx.exception;
  */
 public class FXMLException extends RuntimeException {
 
+    private static final long serialVersionUID = -481836061900375825L;
+
     /**
      * FXMLException constructor.
      * 

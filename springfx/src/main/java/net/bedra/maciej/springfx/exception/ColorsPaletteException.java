@@ -7,6 +7,8 @@ package net.bedra.maciej.springfx.exception;
  */
 public class ColorsPaletteException extends RuntimeException {
 
+    private static final long serialVersionUID = 6552548989847450052L;
+
     /**
      * ColorsPaletteException constructor.
      * 
