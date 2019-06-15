@@ -77,7 +77,7 @@ public class FXMLProvider {
         log.debug("Loading FXML view to scene [name = {}]", name);
         FXMLView loadedView = loadView(name);
         primaryStage.setScene(new Scene((Parent) loadedView.getComponent()));
-        log.debug("FXML view loaded to scene [view = {}]", loadedView.toString());
+        log.debug("FXML view loaded to scene [view = {}]", loadedView.getAbsolutePath();
 
         return loadedView.getController();
     }
@@ -103,13 +103,13 @@ public class FXMLProvider {
         try {
             Object component = fxmlLoader.load();
             Object controller = fxmlLoader.getController();
-            fxmlView = new FXMLView(component, controller);
+            fxmlView = new FXMLView(view.getPath(), component, controller);
         } catch (IOException ex) {
             log.error("Error occurred while loading FXML view", ex);
             throw new FXMLException("FXML view loading failed");
         }
 
-        log.debug("FXML view loaded [view = {}]", fxmlView.toString());
+        log.debug("FXML view loaded [view = {}]", fxmlView.getAbsolutePath());
 
         return fxmlView;
     }

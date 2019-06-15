@@ -10,6 +10,9 @@ import lombok.Getter;
 public class FXMLView {
 
     @Getter
+    private final String absolutePath;
+
+    @Getter
     private final Object component;
 
     @Getter
@@ -18,10 +21,12 @@ public class FXMLView {
     /**
      * FXMLView constructor.
      * 
-     * @param component  component with loaded FXML view
-     * @param controller controller of the loaded FXML view
+     * @param absolutePath absolute path to FXML view file
+     * @param component    component with loaded FXML view
+     * @param controller   controller of the loaded FXML view
      */
-    public FXMLView(Object component, Object controller) {
+    public FXMLView(String absolutePath, Object component, Object controller) {
+        this.absolutePath = absolutePath;
         this.component = component;
         this.controller = controller;
     }
