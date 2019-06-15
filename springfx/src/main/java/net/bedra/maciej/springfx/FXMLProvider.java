@@ -77,7 +77,7 @@ public class FXMLProvider {
         log.debug("Loading FXML view to scene [name = {}]", name);
         FXMLView loadedView = loadView(name);
         primaryStage.setScene(new Scene((Parent) loadedView.getComponent()));
-        log.debug("FXML view loaded to scene [view = {}]", loadedView.getAbsolutePath();
+        log.debug("FXML view loaded to scene [view = {}]", loadedView.getAbsolutePath());
 
         return loadedView.getController();
     }
