@@ -28,7 +28,7 @@ public class ProviderConfig {
     public AnnotationConfigApplicationContext applicationContext() {
         log.debug("Initializing Spring Boot context");
         AnnotationConfigApplicationContext acac = new AnnotationConfigApplicationContext();
-        log.debug("Spring Boot context initialized [contextName = {}]", acac.getDisplayName());
+        log.debug("Spring Boot context initialized");
 
         return acac;
     }
@@ -43,7 +43,7 @@ public class ProviderConfig {
     public ColorsPalette colorsPalette() {
         log.debug("Initializing colors palette");
         ColorsPalette colorsPalette = new ColorsPalette();
-        log.debug("Colors palette initialized [colorsPalette = {}]", colorsPalette.toString());
+        log.debug("Colors palette initialized");
 
         return colorsPalette;
     }
@@ -58,9 +58,9 @@ public class ProviderConfig {
     @Bean
     @DependsOn("applicationContext")
     public FXMLProvider fxmlProvider(AnnotationConfigApplicationContext applicationContext) {
-        log.debug("Initializing FXML provider [contextName = {}]", applicationContext.getDisplayName());
+        log.debug("Initializing FXML provider");
         FXMLProvider fxmlProvider = new FXMLProvider(applicationContext);
-        log.debug("FXML provider initialized [fxmlProvider = {}]", fxmlProvider.toString());
+        log.debug("FXML provider initialized");
 
         return fxmlProvider;
     }
