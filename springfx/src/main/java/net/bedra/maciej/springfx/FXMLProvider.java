@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.bedra.maciej.springfx.exception.FXMLException;
 import net.bedra.maciej.springfx.model.FXMLView;
@@ -25,11 +26,14 @@ import net.bedra.maciej.springfx.model.FXMLView;
 @Slf4j
 public class FXMLProvider {
 
+    private ResourceBundle languagePack;
+    private Map<String, URL> views = new TreeMap<>();
+
+    @Getter
     private final AnnotationConfigApplicationContext applicationContext;
 
-    private ResourceBundle languagePack;
+    @Getter
     private Stage primaryStage;
-    private Map<String, URL> views = new TreeMap<>();
 
     /**
      * FXMLProvider constructor.
