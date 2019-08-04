@@ -20,6 +20,15 @@ public class ColorsPalette {
     private final Map<String, Paint> colors = new TreeMap<>();
 
     /**
+     * ColorsPalette constructor.
+     * 
+     * @param confPalette colors definitions from configuration
+     */
+    public ColorsPalette(Map<String, String> confPalette) {
+        initialize(confPalette);
+    }
+
+    /**
      * Get color from palette for accessible name.
      * 
      * @param name accessible name of the color
@@ -62,6 +71,10 @@ public class ColorsPalette {
             throw new ColorsPaletteException("Color hex is null");
         }
 
+        if (hex.charAt(0) != '#') {
+            hex = "#" + hex;
+        }
+
         try {
             color = Paint.valueOf(hex);
         } catch (NullPointerException | IllegalArgumentException ex) {
@@ -86,7 +99,7 @@ public class ColorsPalette {
      * 
      * @param confPalette colors definitions from configuration
      */
-    protected void initialize(Map<String, String> confPalette) {
+    private void initialize(Map<String, String> confPalette) {
         log.debug("Initializing colors palette with configuration [confPalette size = {}]",
                 confPalette != null ? confPalette.size() : null);
 

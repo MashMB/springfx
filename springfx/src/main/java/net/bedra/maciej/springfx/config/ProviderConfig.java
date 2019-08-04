@@ -1,5 +1,8 @@
 package net.bedra.maciej.springfx.config;
 
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,12 +40,13 @@ public class ProviderConfig {
      * Initialize colors palette that will be available for whole application
      * (Spring Boot bean).
      * 
+     * @param confPalette colors definitions from configuration
      * @return ColorsPalette colors palette available for whole application
      */
     @Bean
-    public ColorsPalette colorsPalette() {
+    public ColorsPalette colorsPalette(@Value("#{${springfx.colors-palette}}") Map<String, String> confPalette) {
         log.debug("Initializing colors palette");
-        ColorsPalette colorsPalette = new ColorsPalette();
+        ColorsPalette colorsPalette = new ColorsPalette(confPalette);
         log.debug("Colors palette initialized");
 
         return colorsPalette;
