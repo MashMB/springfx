@@ -81,4 +81,22 @@ public class ColorsPalette {
         log.debug("Color added to palette [color = {}]", color.toString());
     }
 
+    /**
+     * Iterate over colors definitions and initialize colors palette.
+     * 
+     * @param confPalette colors definitions from configuration
+     */
+    protected void initialize(Map<String, String> confPalette) {
+        log.debug("Initializing colors palette with configuration [confPalette size = {}]",
+                confPalette != null ? confPalette.size() : null);
+
+        if (confPalette != null && !confPalette.isEmpty()) {
+            for (Map.Entry<String, String> definition : confPalette.entrySet()) {
+                addColor(definition.getKey(), definition.getValue());
+            }
+        }
+
+        log.debug("Colors palette initialized with configuration [colorsPalette size = {}]", colors.size());
+    }
+
 }
