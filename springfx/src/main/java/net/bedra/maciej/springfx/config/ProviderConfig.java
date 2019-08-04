@@ -44,7 +44,8 @@ public class ProviderConfig {
      * @return ColorsPalette colors palette available for whole application
      */
     @Bean
-    public ColorsPalette colorsPalette(@Value("#{${springfx.colors-palette}}") Map<String, String> confPalette) {
+    public ColorsPalette colorsPalette(
+            @Value("#{${springfx.colors-palette:T(java.util.Collections).emptyMap()}}") Map<String, String> confPalette) {
         log.debug("Initializing colors palette");
         ColorsPalette colorsPalette = new ColorsPalette(confPalette);
         log.debug("Colors palette initialized");
