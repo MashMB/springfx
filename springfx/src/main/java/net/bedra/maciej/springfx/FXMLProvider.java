@@ -39,9 +39,12 @@ public class FXMLProvider {
      * FXMLProvider constructor.
      * 
      * @param applicationContext Spring Boot application context
+     * @param confViews          FXML views definitions from configuration
      */
-    public FXMLProvider(AnnotationConfigApplicationContext applicationContext) {
+    public FXMLProvider(AnnotationConfigApplicationContext applicationContext, Map<String, String> confViews) {
         this.applicationContext = applicationContext;
+
+        initialize(confViews);
     }
 
     /**
@@ -94,7 +97,6 @@ public class FXMLProvider {
         log.debug("Loading FXML view [name = {}]", name);
         FXMLView fxmlView = null;
         URL view = getView(name);
-
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setControllerFactory(applicationContext::getBean);
         fxmlLoader.setResources(languagePack);
@@ -147,6 +149,24 @@ public class FXMLProvider {
 
         views.put(name, view);
         log.debug("FXML view added to provider collection [name = {}, path = {}]", name, view.getPath());
+    }
+
+    /**
+     * Iterate over FXML views definitions and initialize FXML provider.
+     * 
+     * @param confViews FXML views definitions from configuration
+     */
+    private void initialize(Map<String, String> confViews) {
+        log.debug("Initializing FXML provider views with configuration [confViews size = {}]",
+                confViews != null ? confViews.size() : null);
+
+        if (confViews != null && !confViews.isEmpty()) {
+            for (Map.Entry<String, String> definition : confViews.entrySet()) {
+                addView(definition.getKey(), definition.getValue());
+            }
+        }
+
+        log.debug("FXML provider views initialized with configuration [views size = {}]", views.size());
     }
 
     /**

@@ -58,13 +58,15 @@ public class ProviderConfig {
      * from it for easy FXML views handling.
      * 
      * @param applicationContext Spring Boot application context
+     * @param confViews          FXML views definitions from configuration
      * @return FXMLProvider FXML views provider
      */
     @Bean
     @DependsOn("applicationContext")
-    public FXMLProvider fxmlProvider(AnnotationConfigApplicationContext applicationContext) {
+    public FXMLProvider fxmlProvider(AnnotationConfigApplicationContext applicationContext,
+            @Value("#{${springfx.fxml-views:T(java.util.Collections).emptyMap()}}") Map<String, String> confViews) {
         log.debug("Initializing FXML provider");
-        FXMLProvider fxmlProvider = new FXMLProvider(applicationContext);
+        FXMLProvider fxmlProvider = new FXMLProvider(applicationContext, confViews);
         log.debug("FXML provider initialized");
 
         return fxmlProvider;
