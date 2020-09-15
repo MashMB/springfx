@@ -1,0 +1,49 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+}
+
+plugins {
+	id 'io.spring.dependency-management' version '1.0.5.RELEASE'
+}
+
+ext {
+	springBootVersion = '2.1.5.RELEASE'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+group = 'net.bedra.maciej'
+version = '1.1.0'
+sourceCompatibility = '1.8'
+
+sourceSets {
+	build {
+		java.srcDir file('src/main/java')
+	}
+}
+
+javadoc {
+	source = sourceSets.main.allJava
+	classpath = configurations.compile
+	options.addStringOption('noqualifier', 'all')
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter')
+	compileOnly('org.projectlombok:lombok')
+	annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
+	annotationProcessor('org.projectlombok:lombok')
+}
